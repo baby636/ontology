@@ -149,12 +149,8 @@ func (this *WasmVmService) Invoke() (interface{}, error) {
 	this.ContextRef.PushContext(&context.Context{ContractAddress: contract.Address, Code: wasmCode})
 
 	var output []byte
-	if this.JitMode {
-		output, err = invokeJit(this, contract, wasmCode)
-	} else {
-		output, err = invokeInterpreter(this, contract, wasmCode)
-	}
 
+	output, err = invokeInterpreter(this, contract, wasmCode)
 	if err != nil {
 		return nil, err
 	}
